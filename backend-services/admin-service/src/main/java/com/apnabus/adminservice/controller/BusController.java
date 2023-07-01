@@ -9,13 +9,15 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("v1.0/bus/")
+//@RequestMapping("v1.0/bus/")
 public class BusController {
     @Autowired
     BusService busService;
 
-    @PostMapping("addBus")
+    @PostMapping("/addBus")
     public ResponseEntity<String> addBus(@RequestBody Bus bus){
         String response = busService.addBus(bus);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -31,5 +33,11 @@ public class BusController {
     public ResponseEntity<String> deleteBus(@PathVariable Integer busId){
         String response = busService.deleteBus(busId);
         return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    @GetMapping("getAllBuses")
+    public ResponseEntity<List<Bus>> getAllBuses(){
+        List<Bus> busList  = busService.getAllBus();
+        return new ResponseEntity<>(busList,HttpStatus.OK);
     }
 }

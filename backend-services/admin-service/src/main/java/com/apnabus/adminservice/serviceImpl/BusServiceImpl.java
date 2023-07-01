@@ -76,4 +76,11 @@ public class BusServiceImpl implements BusService {
         busRepository.save(bus);
         return "Bus Successfully Deleted";
     }
+
+    @Override
+    public List<Bus> getAllBus() {
+
+        List<Bus> busList = busRepository.getAllBus();
+        return busList;
+    }
 }
