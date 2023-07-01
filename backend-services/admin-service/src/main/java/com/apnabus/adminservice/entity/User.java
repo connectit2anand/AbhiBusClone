@@ -25,13 +25,11 @@ public class User {
     @NotBlank(message= "Mobile number cannot be blank!")
     @Pattern(regexp = "[6789]{1}[0-9]{9}", message = "Enter valid 10 digit mobile number")
     private String mobile;
-
     @Email
     private String email;
     private String password;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Reservation> reservationList;
-
     @OneToOne
     private Wallet wallet;
 }

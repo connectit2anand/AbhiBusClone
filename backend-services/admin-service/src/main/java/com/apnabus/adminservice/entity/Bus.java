@@ -21,6 +21,10 @@ public class Bus {
     @NotNull(message="Bus Name Cannot Be Null")
     @Column(name = "bus_name")
     private String busName;
+
+    @NotNull(message="Bus Number Cannot Be Null")
+    @Column(name="bus_number")
+    private String busNumber;
     @NotNull(message="Driver Name Cannot Be Null")
     @Column(name = "driver_name")
     private String driverName;
@@ -28,6 +32,8 @@ public class Bus {
     @NotNull(message="Bus Type Cannot Be Null")
     @Column(name = "bus_type")
     private String busType;
+
+    private boolean isActive = true;
 
     @NotNull(message="Bus Journey Date Cannot Be Null")
     @Column(name = "bus_journey_date")
@@ -54,7 +60,7 @@ public class Bus {
 
     @Column(name = "fare")
     @NotNull(message="Fare Cannot Be Null")
-    private double fare;
+    private Double fare;
 
     @ManyToOne
     private Route route;

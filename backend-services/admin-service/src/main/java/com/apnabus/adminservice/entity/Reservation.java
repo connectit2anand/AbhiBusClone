@@ -11,7 +11,6 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String status;
     private LocalDate date;
     private LocalTime time;
@@ -21,16 +20,12 @@ public class Reservation {
     private LocalDate journeyDate;
     @Column(name="booked_date")
     private LocalDate bookedDate;
-
     @Column(name="booked_seat")
     private Integer bookedSeat;
-
     @Column(name="fare")
     private double fare;
-
     @ManyToOne
     private User user;
-
     @ManyToOne
     private Bus bus;
 
