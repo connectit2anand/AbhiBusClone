@@ -67,4 +67,5 @@ public class Bus {
     private Route route;
     @OneToMany(mappedBy = "bus",cascade = CascadeType.ALL)
     private List<Reservation> reservationList;
+
 }

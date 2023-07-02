@@ -13,6 +13,5 @@ public class BusDTO {
     private LocalTime arrivalTime;
     private LocalTime departureTime;
     private Double fare;
-    private Route route;
 
 }

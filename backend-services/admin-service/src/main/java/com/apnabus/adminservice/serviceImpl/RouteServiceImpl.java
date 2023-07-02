@@ -22,13 +22,7 @@ public class RouteServiceImpl implements RouteService {
 
         String routeFrom = route.getRouteTo().toUpperCase();
         String routeTo = route.getRouteTo().toUpperCase();
-        if(routeFrom.equals(routeTo)){
-            throw new RouteException("Route From And Route To Cannot Be Same");
-        }
-        Route existingRoute = routeRepository.getRouteByRouteFromAndRouteTo(routeFrom,routeTo);
-        if(existingRoute != null){
-            throw new RouteException("Route Already Exist");
-        }
+        validateRoutes(routeFrom, routeTo);
         route.setRouteFrom(routeFrom);
         route.setRouteTo(routeTo);
         route.setBusList(new ArrayList<>());
@@ -44,6 +38,16 @@ public class RouteServiceImpl implements RouteService {
         return "Route Successfully Deleted";
     }
 
+    private void validateRoutes(String routeFromDto, String routeToDto) {
+        if(routeFromDto.equals(routeToDto)) {
+            throw new RouteException("Route From And Route To Cannot Be Same");
+        }
+        Route r = routeRepository.getRouteByRouteFromAndRouteTo(routeFromDto, routeToDto);
+        if(r != null) {
+            throw new RouteException("Route From and Route to already exists");
+        }
+    }
+
     @Override
     public String updateRoute(RouteDTO routeDTO, Integer routeId) {
 
@@ -53,16 +57,12 @@ public class RouteServiceImpl implements RouteService {
         String routeFromDb = route.getRouteFrom();
         String routeToDb = route.getRouteTo();
 
-        if(routeFromDto != null && routeToDto == null && routeFromDto.equals(routeFromDb)){
-            throw new RouteException("Route From And Route To Cannot Be Same");
-        }
-        if(routeToDto != null && routeFromDto == null && routeToDto.equals(routeToDb)){
-            throw new RouteException("Route From And Route To Cannot Be Same");
+        if(routeFromDto != null && routeToDto != null) {
+           validateRoutes(routeFromDto, routeToDto);
+        } else if(routeFromDto != null || routeToDto != null) {
+            validateDifferentRoutes(routeFromDto, routeToDto, routeFromDb, routeToDb);
         }
 
-        if(routeFromDto != null && routeToDto != null && routeFromDto.equals(routeToDto)){
-            throw new RouteException("Please Add Valid Route From And Route To Details");
-        }
         if(routeDTO.getIsActive() != null){
             route.setIsActive(true);
         }
@@ -75,19 +75,21 @@ public class RouteServiceImpl implements RouteService {
         if(routeDTO.getDistance() != null){
             route.setDistance(routeDTO.getDistance());
         }
-
-        //Route To And Route From Should Not Be Same
-        String routeTo = route.getRouteTo();
-        String routeFrom = route.getRouteFrom();
-        if(routeTo.equalsIgnoreCase(routeFrom)){
-            throw new RouteException("RouteTo And Route From Cannnot Be Same");
-        }
+        routeRepository.save(route);
         return "Route Successfully Updated";
+    }
+
+    private void validateDifferentRoutes(String routeFromDto, String routeToDto, String routeFromDb, String routeToDb) {
+        if(routeFromDto != null && routeFromDto.equals(routeToDb)){
+            throw new RouteException("Route From And Route To Cannot Be Same");
+        }
+        if(routeToDto != null &&  routeToDto.equals(routeFromDb)){
+            throw new RouteException("Route From And Route To Cannot Be Same");
+        }
     }
 
     @Override
     public List<Route> getAllRoute() {
-        List<Route> routeList = routeRepository.getAllRoute();
-        return routeList;
+        return routeRepository.getAllRoute();
     }
 }

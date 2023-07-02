@@ -64,9 +64,6 @@ public class BusServiceImpl implements BusService {
         if(busDTO.getDepartureTime() != null){
             bus.setDepartureTime(busDTO.getDepartureTime());
         }
-        if(busDTO.getRoute() != null){
-            bus.setRoute(busDTO.getRoute());
-        }
         busRepository.save(bus);
 
         LocalDate journeDate = bus.getBusJourneyDate();
