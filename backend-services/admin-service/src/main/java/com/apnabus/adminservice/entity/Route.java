@@ -16,6 +16,8 @@ public class Route {
     @Column(name="route_to")
     private String routeTo;
     private int distance;
+    @Column(name="is_active")
+    private Boolean isActive = true;
     @OneToMany(mappedBy = "route",cascade = CascadeType.ALL)
     private List<Bus> busList;
 }
