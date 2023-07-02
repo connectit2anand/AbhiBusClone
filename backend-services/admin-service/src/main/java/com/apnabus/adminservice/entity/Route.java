@@ -1,10 +1,12 @@
 package com.apnabus.adminservice.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
+@Data
 public class Route {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
