@@ -41,5 +41,14 @@ public class GlobalException {
 		err.setDescription(req.getDescription(false));
 		return new ResponseEntity<>(err,HttpStatus.BAD_REQUEST);
 	}
+
+	@ExceptionHandler(RouteException.class)
+	public ResponseEntity<MyErrorDetail> myBusExceptionHandler(RouteException ex,WebRequest req){
+		MyErrorDetail err = new MyErrorDetail();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage("Validation Error");
+		err.setDescription(req.getDescription(false));
+		return new ResponseEntity<>(err,HttpStatus.BAD_REQUEST);
+	}
 }
 	

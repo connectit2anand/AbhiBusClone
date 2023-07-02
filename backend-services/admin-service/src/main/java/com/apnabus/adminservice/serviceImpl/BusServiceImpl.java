@@ -5,12 +5,15 @@ import com.apnabus.adminservice.entity.Bus;
 import com.apnabus.adminservice.entity.Route;
 import com.apnabus.adminservice.exception.BusException;
 import com.apnabus.adminservice.exception.InvalidRequestException;
+import com.apnabus.adminservice.exception.RouteException;
 import com.apnabus.adminservice.repository.BusRepository;
+import com.apnabus.adminservice.repository.RouteRepository;
 import com.apnabus.adminservice.service.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,10 +21,13 @@ public class BusServiceImpl implements BusService {
 
     @Autowired
     BusRepository busRepository;
+    @Autowired
+    RouteRepository routeRepository;
 
     @Override
-    public String addBus(Bus bus) {
+    public String addBus(Bus bus, Integer routeId) {
 
+        Route route = routeRepository.findById(routeId).orElseThrow(()->new BusException("Invalid Route Id"));
         String busNumber = bus.getBusNumber();
         List<Bus> buses = busRepository.findByBusNumber(busNumber);
         if(buses.size() != 0){
@@ -32,7 +38,8 @@ public class BusServiceImpl implements BusService {
         if(journeDate.isBefore(LocalDate.now())){   //comparing journey date from current date
             throw new InvalidRequestException("Please Enter Valid Journey Date");
         }
-
+        bus.setRoute(route);
+        bus.setReservationList(new ArrayList<>());
         busRepository.save(bus);
         return "Bus Successfully Added";
     }

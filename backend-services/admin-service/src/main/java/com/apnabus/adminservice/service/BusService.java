@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BusService {
 
-    String addBus(Bus bus);
+    String addBus(Bus bus, Integer routeId);
 
     String updateBus(BusDTO busDTO, Integer busId);
 

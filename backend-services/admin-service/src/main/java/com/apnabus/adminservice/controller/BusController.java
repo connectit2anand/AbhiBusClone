@@ -17,9 +17,9 @@ public class BusController {
     @Autowired
     BusService busService;
 
-    @PostMapping("addBus")
-    public ResponseEntity<String> addBus(@RequestBody Bus bus){
-        String response = busService.addBus(bus);
+    @PostMapping("addBus/{routeId}")
+    public ResponseEntity<String> addBus(@RequestBody Bus bus, @PathVariable Integer routeId){
+        String response = busService.addBus(bus,routeId);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
