@@ -79,7 +79,6 @@ public class BusServiceImpl implements BusService {
 
     @Override
     public List<Bus> getAllBus() {
-
         List<Bus> busList = busRepository.getAllBus();
         return busList;
     }

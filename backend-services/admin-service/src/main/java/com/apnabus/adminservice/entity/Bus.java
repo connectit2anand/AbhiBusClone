@@ -33,6 +33,7 @@ public class Bus {
     @Column(name = "bus_type")
     private String busType;
 
+    @Column(name = "is_active")
     private boolean isActive = true;
 
     @NotNull(message="Bus Journey Date Cannot Be Null")
@@ -56,7 +57,7 @@ public class Bus {
 
     @Column(name="available_seats")
     @NotNull(message="Availbale Seats Cannot Be Null")
-    private Integer availabaleSeats;
+    private Integer availableSeats;
 
     @Column(name = "fare")
     @NotNull(message="Fare Cannot Be Null")

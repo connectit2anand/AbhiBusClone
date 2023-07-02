@@ -12,24 +12,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//@RequestMapping("v1.0/bus/")
+@RequestMapping("v1.0/bus/")
 public class BusController {
     @Autowired
     BusService busService;
 
-    @PostMapping("/addBus")
+    @PostMapping("addBus")
     public ResponseEntity<String> addBus(@RequestBody Bus bus){
         String response = busService.addBus(bus);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @PatchMapping("updateBus/busId")
+    @PatchMapping("updateBus/{busId}")
     public ResponseEntity<String> updateBus(@RequestBody BusDTO busDTO,@PathVariable Integer busId){
         String response = busService.updateBus(busDTO,busId);
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
-    @DeleteMapping("busId")
+    @DeleteMapping("deleteBus/{busId}")
     public ResponseEntity<String> deleteBus(@PathVariable Integer busId){
         String response = busService.deleteBus(busId);
         return new ResponseEntity<>(response,HttpStatus.OK);
