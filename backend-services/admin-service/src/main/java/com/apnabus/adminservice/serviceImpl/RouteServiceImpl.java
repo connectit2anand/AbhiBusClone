@@ -48,7 +48,21 @@ public class RouteServiceImpl implements RouteService {
     public String updateRoute(RouteDTO routeDTO, Integer routeId) {
 
         Route route = routeRepository.findById(routeId).orElseThrow(()-> new RouteException("Invalid Routde Id"));
+        String routeFromDto = routeDTO.getRouteFrom().toUpperCase();
+        String routeToDto = routeDTO.getRouteTo().toUpperCase();
+        String routeFromDb = route.getRouteFrom();
+        String routeToDb = route.getRouteTo();
 
+        if(routeFromDto != null && routeToDto == null && routeFromDto.equals(routeFromDb)){
+            throw new RouteException("Route From And Route To Cannot Be Same");
+        }
+        if(routeToDto != null && routeFromDto == null && routeToDto.equals(routeToDb)){
+            throw new RouteException("Route From And Route To Cannot Be Same");
+        }
+
+        if(routeFromDto != null && routeToDto != null && routeFromDto.equals(routeToDto)){
+            throw new RouteException("Please Add Valid Route From And Route To Details");
+        }
         if(routeDTO.getIsActive() != null){
             route.setIsActive(true);
         }
