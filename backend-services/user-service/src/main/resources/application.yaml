@@ -1,9 +1,9 @@
 
 server:
-  port: 9003
+  port: 9001
 spring:
   application:
-    name: USER-SERVICE
+    name: ADMIN-SERVICE
 
 eureka:
   client:
