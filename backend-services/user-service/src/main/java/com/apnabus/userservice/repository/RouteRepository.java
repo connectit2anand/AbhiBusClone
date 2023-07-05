@@ -9,5 +9,10 @@ import java.util.List;
 
 public interface RouteRepository extends JpaRepository<Bus,Integer> {
     @Query("select b from Route b where b.routeFrom =?1 and b.routeTo =?2")
-    Route getAllBusList(String source, String destination);
+    Route getRoute(String source, String destination);
+
+    @Query("select distinct (r.routeFrom) from Route r")
+    List<String> getAllSource();
+    @Query("select distinct (r.routeTo) from Route r")
+    List<String> getAllDestination();
 }

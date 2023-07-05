@@ -20,7 +20,7 @@ public class RouteServiceImpl implements RouteService {
     @Override
     public String addRoute(Route route) {
 
-        String routeFrom = route.getRouteTo().toUpperCase();
+        String routeFrom = route.getRouteFrom().toUpperCase();
         String routeTo = route.getRouteTo().toUpperCase();
         validateRoutes(routeFrom, routeTo);
         route.setRouteFrom(routeFrom);

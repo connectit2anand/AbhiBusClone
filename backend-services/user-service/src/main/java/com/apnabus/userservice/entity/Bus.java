@@ -1,5 +1,6 @@
 package com.apnabus.userservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -65,6 +66,24 @@ public class Bus {
     @ManyToOne
     private Route route;
     @OneToMany(mappedBy = "bus",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Reservation> reservationList;
 
+    @Override
+    public String toString() {
+        return "Bus{" +
+                "id=" + id +
+                ", busName='" + busName + '\'' +
+                ", busNumber='" + busNumber + '\'' +
+                ", driverName='" + driverName + '\'' +
+                ", busType='" + busType + '\'' +
+                ", isActive=" + isActive +
+                ", busJourneyDate=" + busJourneyDate +
+                ", arrivalTime=" + arrivalTime +
+                ", departureTime=" + departureTime +
+                ", totalSeats=" + totalSeats +
+                ", availableSeats=" + availableSeats +
+                ", fare=" + fare +
+                '}';
+    }
 }

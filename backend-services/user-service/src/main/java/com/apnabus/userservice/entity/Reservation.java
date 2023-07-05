@@ -1,12 +1,19 @@
 package com.apnabus.userservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
 @Table(name="reservation")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +34,23 @@ public class Reservation {
     @ManyToOne
     private User user;
     @ManyToOne
+    @JsonIgnore
     private Bus bus;
 
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                ", date=" + date +
+                ", time=" + time +
+                ", source='" + source + '\'' +
+                ", destination='" + destination + '\'' +
+                ", journeyDate=" + journeyDate +
+                ", bookedDate=" + bookedDate +
+                ", bookedSeat=" + bookedSeat +
+                ", fare=" + fare +
+                '}';
+    }
 }

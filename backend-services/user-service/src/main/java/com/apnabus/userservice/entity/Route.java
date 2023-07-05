@@ -1,5 +1,6 @@
 package com.apnabus.userservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,6 +20,19 @@ public class Route {
     private Integer distance;
     @Column(name="is_active")
     private Boolean isActive = true;
+
     @OneToMany(mappedBy = "route",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Bus> busList;
+
+    @Override
+    public String toString() {
+        return "Route{" +
+                "id=" + id +
+                ", routeFrom='" + routeFrom + '\'' +
+                ", routeTo='" + routeTo + '\'' +
+                ", distance=" + distance +
+                ", isActive=" + isActive +
+                '}';
+    }
 }
